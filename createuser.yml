@@ -1,0 +1,10 @@
+---
+- name: Create myuser with password UserPass
+  hosts: localhost
+  become: yes
+
+  tasks:
+    - name: Create myuser
+      user:
+        name: myuser
+        password: "{{ 'UserPass' | password_hash('sha512') }}"

@@ -1,0 +1,25 @@
+---
+- name: iptables
+  hosts: localhost
+  become: true
+
+  tasks:
+    - name: Allow trafiic on port 9100 from 123.145.167.254
+      iptables:
+        chain: INPUT
+        protocol: tcp
+        destination_port: 9100
+        source: 123.145.167.254
+        jump: ACCEPT
+
+    - name: Allow traffic on port 37656
+      iptables:
+        chain: INPUT
+        protocol: tcp
+        destination_port: 37656
+        jump: ACCEPT
+
+    - name: Deny incoming traffic by default
+      iptables:
+        chain: INPUT
+        policy: DROP
